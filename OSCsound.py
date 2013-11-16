@@ -47,6 +47,11 @@ def handle_score(path, tags, args, source):
     global csPerfThread
     #print "TESTING", args[0]
     csPerfThread.InputMessage(args[0])
+    
+def handle_inst(path, tags, args, source):
+    global csPerfThread
+    #print "TESTING", args[0]
+    csound.CompileOrc(args[0])
 
 def handle_cc(path, tags, args, source):
     global csound
@@ -85,6 +90,7 @@ def server_start(port=7110):
     server.handle_timeout = types.MethodType(handle_timeout, server)
 
     server.addMsgHandler("/sco", handle_score)
+    server.addMsgHandler("/inst", handle_inst)
     server.addMsgHandler("/cc", handle_cc)
     server.addMsgHandler("/quit", quit_callback)
     server.addMsgHandler("default", default_callback)
